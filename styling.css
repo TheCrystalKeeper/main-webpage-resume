@@ -17,7 +17,7 @@ body {
 header {
   position: sticky;
   top: 0;
-  /*width: 100%;*/
+  width: 100%;
   background-color: #FFFFFF; /* White background for the header */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
   z-index: 1000; /* Ensure it stays above other content */
