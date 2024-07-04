@@ -6,7 +6,7 @@ body {
   margin: auto;
   max-width: 50%; /* Reduced width for smaller text area */
   min-width: 800px; /* Reduced width for smaller text area */
-  padding: 25px;
+  padding: 0px;
   font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
   background-color: #F5F5F5; /* Off-white background */
   color: #212427; /* Off-black text color */
@@ -15,9 +15,9 @@ body {
 
 /* Sticky Header Styling */
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  width: 100%;
+  /*width: 100%;*/
   background-color: #FFFFFF; /* White background for the header */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
   z-index: 1000; /* Ensure it stays above other content */
