@@ -1,7 +1,7 @@
 html {
   font-size: 18px; /* Set base font size */
 }
-/* General Styling */
+
 body {
   margin: auto;
   max-width: 50%; /* Reduced width for smaller text area */
@@ -10,13 +10,47 @@ body {
   font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
   background-color: #F5F5F5; /* Off-white background */
   color: #212427; /* Off-black text color */
+  padding-top: 70px; /* To prevent content from being hidden behind the sticky header */
 }
 
-/* Title Styling */
-h2, h3 {
-  text-align: center;
+/* Sticky Header Styling */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #FFFFFF; /* White background for the header */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  z-index: 1000; /* Ensure it stays above other content */
+  padding: 10px 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-family: 'medium-content-sans-serif-font', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* Modern sans-serif font */
   color: #212427; /* Off-black text color */
-  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif;  /* Modern sans-serif font */
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+header nav ul li {
+  margin-left: 20px;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: #212427; /* Off-black text color */
+  font-size: 1rem; /* Scale font size relative to the base font size */
+}
+
+header nav ul li a:hover {
+  text-decoration: underline;
 }
 
 /* Image Styling */
@@ -28,13 +62,15 @@ img {
 /* Paragraph Styling */
 p, .p2, .p3 {
   color: #212427; /* Off-black text color */
-  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
+  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial', sans-serif; /* Slightly different modern sans-serif font */
+  font-size: 1rem; /* Scale font size relative to the base font size */
 }
 
 /* List Styling */
 ul {
   color: #212427; /* Off-black text color */
-  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
+  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial', sans-serif; /* Slightly different modern sans-serif font */
+  font-size: 1rem; /* Scale font size relative to the base font size */
 }
 
 /* Container Styling */
