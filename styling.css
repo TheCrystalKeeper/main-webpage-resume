@@ -4,7 +4,7 @@ html {
 
 body {
   margin: auto;
-  max-width: 50%; /* Reduced width for smaller text area */
+  max-width: 100%; /* Reduced width for smaller text area */
   min-width: 800px; /* Reduced width for smaller text area */
   padding: 0px;
   font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
@@ -79,6 +79,7 @@ ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 50%;
 }
 
 /* Centered Elements */
