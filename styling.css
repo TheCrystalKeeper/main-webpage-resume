@@ -1,10 +1,10 @@
 html {
-  font-size: 20px; /* Set base font size */
+  font-size: 18px; /* Set base font size */
 }
 /* General Styling */
 body {
   margin: auto;
-  max-width: 800px; /* Reduced width for smaller text area */
+  max-width: 50%; /* Reduced width for smaller text area */
   padding: 25px;
   font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
   background-color: #F5F5F5; /* Off-white background */
