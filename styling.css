@@ -1,118 +1,124 @@
+
 html {
-  font-size: 18px; /* Set base font size */
+    font-size: 18px; /* Set base font size */
 }
 
 body {
-  margin: auto;
-  max-width: 100%; /* Reduced width for smaller text area */
-  min-width: 800px; /* Reduced width for smaller text area */
-  padding: 0px;
-  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
-  background-color: #F5F5F5; /* Off-white background */
-  color: #212427; /* Off-black text color */
-  padding-top: 70px; /* To prevent content from being hidden behind the sticky header */
+    margin: auto;
+    max-width: 100%; /* Reduced width for smaller text area */
+    padding: 0;
+    font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
+    background-color: #F5F5F5; /* Off-white background */
+    color: #212427; /* Off-black text color */
+    padding-top: 70px; /* To prevent content from being hidden behind the sticky header */
 }
 
 /* Sticky Header Styling */
 header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  background-color: #FFFFFF; /* White background for the header */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-  z-index: 1000; /* Ensure it stays above other content */
-  padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #FFFFFF; /* White background for the header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    z-index: 1000; /* Ensure it stays above other content */
+    padding: 10px 20px;
+    text-align: center;
 }
 
 header h1 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-family: 'medium-content-sans-serif-font', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* Modern sans-serif font */
-  color: #212427; /* Off-black text color */
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: 'medium-content-sans-serif-font', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* Modern sans-serif font */
+    color: #212427; /* Off-black text color */
 }
 
 header nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 }
 
 header nav ul li {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 header nav ul li a {
-  text-decoration: none;
-  color: #212427; /* Off-black text color */
-  font-size: 1rem; /* Scale font size relative to the base font size */
+    text-decoration: none;
+    color: #212427; /* Off-black text color */
+    font-size: 1rem; /* Scale font size relative to the base font size */
 }
 
 header nav ul li a:hover {
-  text-decoration: underline;
-}
-
-/* Image Styling */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Paragraph Styling */
-p, .p2, .p3 {
-  color: #212427; /* Off-black text color */
-  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial', sans-serif; /* Slightly different modern sans-serif font */
-  font-size: 1rem; /* Scale font size relative to the base font size */
-}
-
-/* List Styling */
-ul {
-  color: #212427; /* Off-black text color */
-  font-family: 'sohne', "Helvetica Neue", Helvetica, Arial', sans-serif; /* Slightly different modern sans-serif font */
-  font-size: 1rem; /* Scale font size relative to the base font size */
-}
-
-/* Container Styling */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 50%;
-}
-
-/* Centered Elements */
-.center {
-  display: block;
-  margin: auto;
-  padding: 10px;
-}
-
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Column Layout */
-.column {
-  float: left;
-  width: 33.33%;
-  height: auto;
-  padding: 0px;
-}
-
-/* Row Layout */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
+    text-decoration: underline;
 }
 
 /* Main Page Content */
 .main-page-content {
-  overflow-wrap: break-word;
-  padding: 3rem 1rem 1rem;
+    max-width: 50%;
+    margin: auto;
+    overflow-wrap: break-word;
+    padding: 3rem 1rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Image Styling */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Paragraph Styling */
+p, .p2, .p3 {
+    color: #212427; /* Off-black text color */
+    font-family: 'sohne', "Helvetica Neue", Helvetica, Arial', sans-serif; /* Slightly different modern sans-serif font */
+    font-size: 1rem; /* Scale font size relative to the base font size */
+}
+
+/* List Styling */
+ul {
+    color: #212427; /* Off-black text color */
+    font-family: 'sohne', "Helvetica Neue", Helvetica, Arial', sans-serif; /* Slightly different modern sans-serif font */
+    font-size: 1rem; /* Scale font size relative to the base font size */
+}
+
+/* Container Styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    margin: auto;
+    padding: 10px;
+}
+
+/* Centered Elements */
+.center {
+    display: block;
+    margin: auto;
+    padding: 10px;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Column Layout */
+.column {
+    float: left;
+    width: 33.33%;
+    height: auto;
+    padding: 0;
+}
+
+/* Row Layout */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
 }
