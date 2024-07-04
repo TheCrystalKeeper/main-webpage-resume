@@ -1,3 +1,6 @@
+html {
+  font-size: 20px; /* Set base font size */
+}
 /* General Styling */
 body {
   margin: auto;
