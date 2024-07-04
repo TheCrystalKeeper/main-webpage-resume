@@ -5,6 +5,7 @@ html {
 body {
   margin: auto;
   max-width: 50%; /* Reduced width for smaller text area */
+  min-width: 800px; /* Reduced width for smaller text area */
   padding: 25px;
   font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
   background-color: #F5F5F5; /* Off-white background */
