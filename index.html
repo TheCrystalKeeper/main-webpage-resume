@@ -1,6 +1,7 @@
-<html> 
-	<head>
-		<script type="text/javascript" id="MathJax-script" async
+<!DOCTYPE html>
+<html lang="en">
+<head>
+			<script type="text/javascript" id="MathJax-script" async
   			src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 		</script>
 		<script>
@@ -13,9 +14,25 @@
  		<Title>Sriram Srivatsan CS184 Pages</Title>
  		<link rel="stylesheet" href="styling.css">
 
-	</head>
-	<body>
-		<h2>CS 184 Writeups</b></h2>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Header Example</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Assuming your CSS file is named styles.css -->
+</head>
+<body>
+  <header>
+    <h1>My Sticky Header</h1>
+    <nav>
+      <ul>
+        <li><a href="#section1">Section 1</a></li>
+        <li><a href="#section2">Section 2</a></li>
+        <li><a href="#section3">Section 3</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Rest of your content -->
+  <div class="main-page-content">
+<h2>CS 184 Writeups</b></h2>
 		<center>
 		<h5>by Sriram Srivatsan &#40;sriram.srivatsan &#40;at&#41; berkeley.edu&#41; and Jaron Erba &#40;jaronerba &#40;at&#41; berkeley.edu&#41;</h5>
 		</center>
@@ -36,7 +53,9 @@
 		<br><br><br>
 		<h3><b>Homework 4 - Cloth Sim</b></h3>
 		<p width: 100%">The Clothsim project was all about simulating an almost physically accurate cloth mesh in real time. Unline project 3 where our renders took multiple minutes to render a scene, this project was much faster and could even be simulated real time with high fps. We used OpenGL, along with GPU acceleration and GLSL to achieve this! First, we started by creating a mesh representation of a square cloth using the mass and springs method. We had three types of springs, structural which attached vertices to ones directly adjacent in the cardinal directions, shearing which allowed us to connect these vertices diagonally, and bending which connected vertices two away from each other cardinally, each serving the purpose of making our simulation more realistic. Then, we used numeric integration to simulate the movement of the cloth given external forces. In order to make the simulation possible real time, we had to settle for an approximate calculation that incorporated only the position, velocity, and acceleration of the vertices. Then, we implemented collisions between the cloth mesh and other objects such as spheres and planes. Finally, we allowed the cloth to collide with itself, allowing for a more realistic 'cloth falling on a plane' animation which included folding and flattening of the cloth as it fell. Finally, we used GLSL to create cool shaders like we did in previous projects. The shaders included diffuse shading, Blinn-Phong, texturing, mirror simulation, bump mapping, and displacement mapping. Overall, this project was very interesting to work on, having a lot of depth in the topic while still being easy to understand.</p>
-	</body>
+  </div>
+</body>
+
 	<script>
 		var links = document.body.getElementsByTagName("a")
 		var a = window.location.href.indexOf(".io")
