@@ -29,25 +29,278 @@
         </nav>
     </header>
     <div class="main-page-content">
-        <h2>CS 184 Writeups</h2>
-        <br>
-        <h3>Homework 1 - Rasterizer</h3>
-        <p>Homework 1 description here.</p>
-        <br>
-        <h3>Homework 2 - Meshes</h3>
-        <p>Homework 2 was all about geometric modeling. $$\int^{5x}_{0} y^2+2\sin(y)\,dt$$In Part I, we first started with drawing curves using control points using de Casteljau subdivision. Using this abstraction, we increased our dimensionality to surfaces in order to render full .bez files.</p>
-        <p>Part II was all about meshes and mesh algorithms. First, we started off by implementing area-weighted vertex normals for Phong shading, making our teapots and other mesh structures look less square. We then implemented edge flipping and splitting which allowed us to modify our mesh in real time. Finally, we implemented upsampling of our mesh through loop subdivision by using our edge splitting and flipping abstractions.</p>
-        <p>Overall, the project was more fun than challenging. Unfortunately, pointers were our main issue throughout Part II, since a single bad reassignment could percolate, and debugging would require us to remember each step precisely. Thankfully, we simplified this process by writing out the algorithm by hand before we even started coding, which gave us something to reference in case anything went wrong.</p>
-        <br>
-        <h3>Homework 3 - Pathtracer</h3>
-        <p>Homework 3 was a delightful trip into the world of pathtracers and global illumination. In Part I, we started out by generating rays and writing the necessary intersections to render our first image that used the surface normals. Part II was perhaps the most interesting section of the project, since with an edit to how we organized the BVH tree (That is, using surface area instead of the median), we were able to radically speed up our code, which was cause for great excitement.</p>
-        <p>Now, armed with our ability to quickly render scenes, we took on Part III. Most of the tasks could be implemented using formulas from the lecture slides, but this part turned out to be a little more than we bargained for, as it took us much longer than expected. We had trouble finding a bug within the section, which ended up making sense, since it wasn’t in that task the whole time. A bug in the collisions in Part II had caused us all the issues in Part III. Lesson learned: Always check old code. Other than that, this section was quite interesting once we got it working, because we finally got to see the shadows on the bunny and the floor.</p>
-        <p>Part IV produced some stunning images that surpassed our expectations. With only writing one other recursive function, we were able to expand the number of light bounces, creating the delightful, soft look of global illumination. We were also able to see exactly how increasing the number of light bounces affected the image.</p>
-        <p>Part V was also pretty neat, since it enabled us to see how adaptive sampling actually rendered the image. We simply had to write a new function to count how many samples the est_radiance_global_illumination() function returned. It was nice to see a visual representation of what we already assumed to be true: The areas in more shadow take longer to converge, and the ones in light converge quicker.</p>
-        <br>
-        <h3>Homework 4 - Cloth Sim</h3>
-        <p>The Clothsim project was all about simulating an almost physically accurate cloth mesh in real time. Unlike project 3 where our renders took multiple minutes to render a scene, this project was much faster and could even be simulated real time with high fps. We used OpenGL, along with GPU acceleration and GLSL to achieve this! First, we started by creating a mesh representation of a square cloth using the mass and springs method. We had three types of springs, structural which attached vertices to ones directly adjacent in the cardinal directions, shearing which allowed us to connect these vertices diagonally, and bending which connected vertices two away from each other cardinally, each serving the purpose of making our simulation more realistic. Then, we used numeric integration to simulate the movement of the cloth given external forces. In order to make the simulation possible real time, we had to settle for an approximate calculation that incorporated only the position, velocity, and acceleration of the vertices. Then, we implemented collisions between the cloth mesh and other objects such as spheres and planes. Finally, we allowed the cloth to collide with itself, allowing for a more realistic 'cloth falling on a plane' animation which included folding and flattening of the cloth as it fell. Finally, we used GLSL to create cool shaders like we did in previous projects. The shaders included diffuse shading, Blinn-Phong, texturing, mirror simulation, bump mapping, and displacement mapping. Overall, this project was very interesting to work on, having a lot of depth in the topic while still being easy to understand.</p>
-    </div>
+       <h2>Homework 4 - <b>Clothsim</b></h2>
+		<h3><b>Overview</b></h3>
+		<p style="color: #DBDEE1; width: 100%">The Clothsim project was all about simulating an almost physically accurate cloth mesh in real time. Unlike homework 3, where our renders took multiple minutes to render a scene, this project was much faster and could even be simulated real time with a high framerate. We used OpenGL, along with GPU acceleration and GLSL to achieve this! </p>
+		<p style="color: #DBDEE1; width: 100%">First, we started by creating a mesh representation of a square cloth using the mass and springs method. We had three types of springs: structural, which attached vertices to ones directly adjacent in the cardinal directions; shearing, which allowed us to connect these vertices diagonally; and bending, which connected vertices two away from each other cardinally.  Each served their purpose of making our simulation more realistic. </p>
+		<p style="color: #DBDEE1; width: 100%">Next, we used numeric integration to simulate the movement of the cloth given external forces. In order to make the simulation possible real time, we had to settle for an approximate calculation that incorporated only the position, velocity, and acceleration of the vertices. Then, we implemented collisions between the cloth mesh and other objects such as spheres and planes. </p>
+		<p style="color: #DBDEE1; width: 100%">Finally, we allowed the cloth to collide with itself, allowing for a more realistic cloth falling on a plane' animation which included folding and flattening of the cloth as it fell. Finally, we used GLSL to create cool shaders like we did in previous projects. The shaders included diffuse shading, Blinn-Phong, texturing, mirror simulation, bump mapping, and displacement mapping. Overall, this project was very interesting to work on, having a lot of depth in the topic while still being easy to understand.</p>
+
+		<br>
+		
+		<h3><b>Part 1: Masses And Springs </b></h3>
+		<p style="color: #DBDEE1; width: 100%">In part one, we created the cloth mesh using vertices and springs connecting these vertices. We had structural springs that connected cardinally adjacent vertices, shearing springs that connected the vertices immediately diagonally, and bending springs that connected the vertices similar to structural but two apart. Structural springs allowed our mesh to have form, while shearing springs made sure that the cloth didn't stretch out unrestricted. Finally, bending springs allowed the cloth to maintain a cloth-like shape without sharply folding at vertices. Below are images of the representation with specific springs.</p>
+		<p style="color: #DBDEE1; width: 100%">Here is our wireframe with no shearing constraints (only structural and bending):</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task1/pinned2_no_shear.png" alt="0">
+		<p style="color: #DBDEE1; width: 100%">Then, with shearing constraints only:</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task1/pinned2_only_shear.png" alt="0">
+		<p style="color: #DBDEE1; width: 100%">And finally, with all constraints:</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task1/pinned2_all.png" alt="0">
+		<br>
+		<br>
+		
+		<h3><b>Part 2: Simulation Via Numerical Integration</b></h3>
+		<p style="color: #DBDEE1; width: 100%">By using each vertex's current position, its previous position (allowing us to get its velocity), and the current forces acting on it, we were able to simulate the movement of a cloth in real time. We used the most basic physics equation for an object in motion which takes in position, velocity, and acceleration. Here is the cloth in its final resting position after hanging from four pins (the color of the cloth represents its normal vector):</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/pinned4.png" alt="0">
+		<p style="color: #DBDEE1; width: 100%">Intriguingly, changing certain parameters allowed us to get different simulations of the cloth coming to rest. The three images below from left to right represent a low, normal, and high spring constant acting upon the cloth respectively. A smaller spring constant made the cloth seem more stretchy, making it stretch further to the ground due to gravity. A normal spring constant made it feel similar to a cotton shirt in terms of hanging from two pins. A very high spring constant made the cloth seem very un-elastic (like a wool sweater) where the cloth felt like it wanted to stay closer together. The higher spring constant converged quickest to its final state, followed by the normal constant, and finally the low spring constant kept wobbling about for a while.</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/ks_low.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/ks_normal.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/ks_high.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Density, on the other hand, seemed to make the cloth more affected by gravity in its final resting state. Unlike the spring constant, a higher density didn't mean that the cloth converged to a resting state quicker. Rather, all it did was make the final state more pulled downwards. This would make sense because gravitational force emits a constant acceleration despite an object's mass. The higher density meant that the force acting on the vertices downwards was higher than the spring pulling it upwards. Below are images of a cloth with low, normal, and high density in order, showing these observations:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/density_low.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/density_normal.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/density_high.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Changing the damping allowed us to simulate a cloth which became thicker and thicker. Low damping looked almost like a satin cloth, whereas normal damping was analogous to cotton, and a high damping simulated a wool cloth. Low damping made it so that the cloth position did not converge at all, which makes sense since there are not many forces stopping the cloth such as friction or heat being created. Medium damping was our reference point for a normal cloth, and a high damping cloth literally fell into convergance right away since there were few forces acting upon it that could actually move the cloth more than the damping prevented. Below are images of our cloth failing to converge with low damping, and the final resting states of normal and high damping in order:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/damping_low.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/damping_normal.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task2/damping_high.png" alt="0">
+			</div>
+		</div>
+		
+		<br>
+		<br>
+		
+		<h3><b>Part 3: Handling Collisions with Other Objects</b></h3>
+		<p style="color: #DBDEE1; width: 100%">In part three, we simulated collisions of the cloth with other objects, namely spheres and planes. We used a heuristic calculation, which simply read that if a vertex lands on the other side of a surface than where it was in the previous step, the cloth collided with the object. To correct its course, we simply moved the object to the surface where it collided before passing through and simulated this correction distance with a little bit of friction to simulate the cloth getting stuck on the object as it fell. Below is the shaded cloth falling on a sphere, with the cloth having spring constant values of 500, 5000, and 50000 respectively:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task3/sphere_ks_500.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task3/sphere_ks_5000.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task3/sphere_ks_50000.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">A low spring constant made the cloth droopy, falling on the sphere and almost wrapping around it if it weren't for gravity. A normal spring constant acted as if a t-shirt would if it fell on top of the sphere. Finally, a high spring constant made the cloth stop moving due to an object in the way, but didn't allow the cloth to wrap around gracefully. Instead, the cloth tried to (although very poorly) imitate a sheet of printer paper fluttering around (think very stiff but still malleable). Here is a cloth resting peacefully on a plane. Unfortunately, this plane isn't the one that flies in the sky from airport to airport, which made us sad (and it should make you sad too).</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task3/plane.png" alt="0">
+		<br>
+		<br>
+		
+		<h3><b>Part 4: Handling Self-Collisions</b></h3>
+		<p style="color: #DBDEE1; width: 100%">Unfortunately, if our cloth fell on itself, it would go right through (does this mean we were able to simulate a glitch in the matrix or was our code just glitchy?). To fix this, we implemented self-collisions. Since our cloth could be huge, we used a hash map heuristic, where vertices were hashed into place using their position in the world. Each NxNxN world coordinate grid housed a set of vertices which would then look at each other and check if there was a collision. This was a fast (but should have been buggy) heuristic. Here are our three states of self collision. The left one showcases an early, initial self-collision, the one in the middle showcases a few more collisions down the line, and the right one showcases the cloth in its final resting place. The final resting place was still vibrating quite a bit (possibly due to very shoddy practices in the self-collision calculations described in the spec).</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/self_collision_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/self_collision_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/self_collision_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Now, we varied the density, starting with a low density setting. (Note, each 3 image format follows the same collision time part as the previous three screenshots.)</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_low_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_low_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_low_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Now, with a normal density setting:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_normal_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_normal_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_normal_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">And, now, with a high density setting:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_high_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_high_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/density_high_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">A higher density made the cloth fall flatter and more crumpled up, rather than smoothly on itself. This made it simulate what we would expect a gold foil falling on itself to look like (not like any of us know what that looks like D: ). With a higher density, the cloth seemed less likely to move due to self collisions, since the force of gravity acting on it was higher than the repulsive forces and springs pushing outwards. Now we vary the spring constant, which creates some neat effects. We start with a low spring constant:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_low_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_low_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_low_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Now we set ks to a more normal spring constant value:</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_normal_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_normal_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_normal_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Finally, we set ks to be relatively high.</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_high_1.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_high_2.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task4/ks_high_3.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">The higher the spring constant got, the less the cloth fell on itself. Instead, the small springs pushed outwards on the cloth with higher force than gravity, and made the cloth fold more (I wish my clothes would automatically fold like this...).</p>
+		<br>
+		<br>
+		
+		<h3><b>Part 5: Shaders</b></h3>
+		<p style="color: #DBDEE1; width: 100%">For task 5, we implemented shaders, some similar to previous projects, and some new (such as the mirror shader). A shader program is essentially a program that runs on the GPU, where given certain parameters creates a value per pixel or vertex. Vertex shaders take the values given by the program (attributes and uniform variables), and create some sort of deformation in the shape. These shaders can change normals, position, and basically any physical propery of the inputs. A fragment shader on the other hand, takes geometric properties of fragments after the rasterization pipeline and creates an out-color that specifies the color of the fragment. For our purposes, a fragment is equivalent to a pixel. However in the real world it can vary, being much smaller, or sometimes even larger than a pixel. Together, we can modify a physical attribute's position (displacement mapping for textures) to allow for material effects, and fragment shaders can create material and lighting effects by calculating incident light and even reflective color based on a environment map.</p>
+		<p style="color: #DBDEE1; width: 100%">The Blinn-Phong shading model is a semi-realistic lighting model that takes into account a few types of light in order to approximate shading. First, there is ambient light. This light is uniform for all parts of the object, creating a slightly bright aura. Then, there is direct lighting. This lighting comes from diffuse shading where the lighting is calculated using the normal vector between a camera view of a pixel and the the surface normal given a light position. Finally, it incorporates specular shading, which takes in the half vertex between the camera ray and a ray pointing to a light source, and uses that to create specular highlights. Below are images of (a) the ambient lighting of Blinn-Phong, (b) the diffuse lighting which is equivalent to diffuse shading, and (c) the specular highlight which creates a glint in the object. For the specular highlight, we decided to keep the light small (high p) because otherwise the glare messed with our render.</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/phong_1_ambient.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/phong_2_diffuse.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/phong_3_specular.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Adding them together, this is what the final Blinn-Phong image looks like:</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/phong_4_all.png" alt="0">
+		<p style="color: #DBDEE1; width: 100%">We also implemented texture mapping in a manner very similar to project 1, but with a lot of the details abstracted away. Below is an image of my beautiful sexy face on a cloth above a sphere :)</p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/texture_2.png" alt="0">
+		<p style="color: #DBDEE1; width: 100%">Then, we worked on the bump map. I'm not entirely sure what the spec means by an image of the sphere, so to be safe, we included the sphere and then our cloth with the sphere. Our first image showcases just a simple bump map on the cloth and on the sphere:</p>
+		<p style="color: #DBDEE1; width: 100%">And, below, we have the renders with the coarseness set to 16: (Bump left, displacement right.)</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_1_bump.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_1_bump_sphere.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">We compare this to displacement mapping on the same texture.</p>
+		<div class="row">
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_1_displacement.png" alt="0">
+			</div>
+		  <div class="column">
+			<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_1_displacement_sphere.png" alt="0">
+		</div>
+	  	</div>
+		<p style="color: #DBDEE1; width: 100%">Bump mapping essentially allows us to take our two dimensional cloth in three dimensional space, and manipulate the normal vectors in order to get the visual effect that there are deformations on the cloth. Unfortunately, if you have a sharp eye, bump mapping feels artificial. On the other hand, displacement mapping takes the actual displacement map and uses a vertex shader to modify the cloth positions based on the given displacement. This mapping feels more natural, but unfortunately with a low vertex count feels weird. Also, to use displacement mapping, you will have to significantly decrease the vertext height modifier and increase the normal, which may seem unnatural. </p>
+		<p style="color: #DBDEE1; width: 100%">And, below, we have the renders with the coarseness set to 16: (Bump left, displacement right.)</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_16_bump.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_16_displacement.png" alt="0">
+			</div>
+		</div>
+		<div class="row">
+			<div class="column">
+			  <img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_16_bump_sphere.png" alt="0">
+		  </div>
+		  <div class="column">
+			  <img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_16_displacement_sphere.png" alt="0">
+		  </div>
+	  	</div>
+		<p style="color: #DBDEE1; width: 100%">We also have the renders with the coarseness set to 128: (Bump left, displacement right.)</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_128_bump.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_128_displacement.png" alt="0">
+			</div>
+		</div>
+		<div class="row">
+			<div class="column">
+			  <img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_128_bump_sphere.png" alt="0">
+		  </div>
+		  <div class="column">
+			  <img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/map_2_128_displacement_sphere.png" alt="0">
+		  </div>
+	  	</div>
+		<p style="color: #DBDEE1; width: 100%">As you can see, bump mapping clearly looks smoother, for both types of spheres. Bump mapping for the smaller vertex sphere does not really change the geometry of the sphere, causing even the bumps to make the sphere look like a regular polygon, while bump mapping significantly deforms the vertices in order to make the sphere look less like a sphere and more like a "sphere" I would make in kindergarten with playdough. For the high vertex mesh though, bump mapping made the sphere look actually bumpy and like a sphere, whereas the displacement mapping made it look like a hairy furball (my cat would be proud). Overall, I am more of a fan of bump mapping. One cool thing to note is shader mapping happens towards the end of the rasterization pipeline, and displacement mapping with high displacement actually makes the mesh seem like it collides with itself or vertices are going through objects they shouldn't go through.</p>
+		<p style="color: #DBDEE1; width: 100%">Finally, we have the renders with our mirror shader, which was the coolest, most self explanatory, and easiest shader of all time to implement (maybe other than texture mapping because the function was literally given to us on a silver platter):</p>
+		<div class="row">
+  			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/mirror_cloth.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/mirror_pinned.png" alt="0">
+			</div>
+			<div class="column">
+				<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/task5/mirror_sphere.png" alt="0">
+			</div>
+		</div>
+		<p style="color: #DBDEE1; width: 100%">Extra Credit: For our custom shader we implemented translucent refraction shaders. Unfortunately, this shader simulation does not allow us to test what values are being hit and what isn't by our camera rays, so we had to improvise. Interestingly, the previous parts had the insides of the cloth lit up as long as the rays were in the direction of the light source. What we did was a heuristic model where we update the Blinn Phong model to take into account refractive light. We do this by taking the flipped normal and a ray going from the camera into the plane. This alone gave the lighting below: </p>
+		<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/extra_credit/refract_only.png" alt="0">
+		<p style="color: #DBDEE1; width: 100%">Notice how there is brightness coming from directions looking at light sources, not reflecting off the surface. We then added a refractive coefficient, allowing us to simulate this light, then we took advantage of the alpha level to make the image seem transparent. This also meant that parts of the image that were hidden were brighter as long as they were translucently visible to light. Below are some neat images of this shader: </p>
+		<div class="row">
+			<div class="column">
+			  	<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/extra_credit/custom_1.png" alt="0">
+		  	</div>
+		 	<div class="column">
+			  	<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/extra_credit/custom_2.png" alt="0">
+		  	</div>
+		  	<div class="column">
+			  	<img src="https://raw.githubusercontent.com/cal-cs184-student/hw-webpages-sp24-ElShroomster/master/hw4/images/extra_credit/custom_3.png" alt="0">
+		  	</div>
+	  	</div>
+		<br>
+		<br>
+</div>
     
     <script>
         var links = document.body.getElementsByTagName("a");
