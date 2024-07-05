@@ -14,7 +14,7 @@ body {
  /* Slightly different modern sans-serif font */
     background-color: #F5F5F5; /* Off-white background */
     color: #212427; /* Off-black text color */
-    padding-top: 70px; /* To prevent content from being hidden behind the sticky header */
+    padding-top: 45px; /* To prevent content from being hidden behind the sticky header */
 }
 
 /* Sticky Header Styling */
