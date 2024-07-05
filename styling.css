@@ -10,7 +10,8 @@ html {
 body {
     margin: 0;
     padding: 0;
-    font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
+        font-family: 'Lato', sans-serif; /* Apply the Lato font */
+ /* Slightly different modern sans-serif font */
     background-color: #F5F5F5; /* Off-white background */
     color: #212427; /* Off-black text color */
     padding-top: 70px; /* To prevent content from being hidden behind the sticky header */
@@ -74,7 +75,8 @@ img {
 
 p, .p2, .p3, ul {
     color: #212427; /* Off-black text color */
-    font-family: 'sohne', "Helvetica Neue", Helvetica, Arial, sans-serif; /* Slightly different modern sans-serif font */
+        font-family: 'Lato', sans-serif; /* Apply the Lato font */
+ /* Slightly different modern sans-serif font */
     font-size: 1rem; /* Scale font size relative to the base font size */
 }
 
