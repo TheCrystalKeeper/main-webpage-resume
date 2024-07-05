@@ -85,7 +85,7 @@ p, .p2, .p3, ul {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 50%;
+    max-width: 60%;
     margin: auto;
     padding: 10px;
 }
